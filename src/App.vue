@@ -34,7 +34,9 @@ export default {
   name: 'App',
   mounted() { // cuando la aplicacion esta creada pero no montada (no dibujada)
       this.cargandoLista=true;
-      axios.get('http://localhost:63342/junio24vue/web/servicio.php?op=listar')
+      axios.get('http://localhost:63342/junio24vue/web/servicio.php?op=listar'
+          ,{headers:{Authorization:'CLAVESECRETA'}}
+      )
     .then( resultado=>{
       this.listaDeProductos=resultado.data;
       this.cargandoLista=false;
@@ -46,7 +48,10 @@ export default {
       this.cargando=true;
       this.clasegif='visible';
       axios
-      .post('http://localhost:63342/junio24vue/web/servicio.php?op=insertar',this.producto)
+      .post('http://localhost:63342/junio24vue/web/servicio.php?op=insertar'
+          ,this.producto
+          ,{headers:{Authorization:'CLAVESECRETA'}}
+      )
       .then(respuesta => { // si la operacion es correcta
         console.log(respuesta);
         this.listaDeProductos.push(this.producto);

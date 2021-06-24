@@ -3,9 +3,31 @@
 // en phpstorm habilitar ALLOWED UNSIGNED REQUEST
 
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Credentials: true");
+header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
+header('Access-Control-Max-Age: 1000');
+header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Authorization, clave');
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    die(1);
+}
+
+
 $op=@$_REQUEST['op']; // $_GET
 
 // http://localhost:63342/junio22/web/servicio.php?op=insertar
+
+// CLAVESECRETA.
+
+
+
+
+$clave=@$_SERVER['HTTP_AUTHORIZATION'];
+if($clave!=='CLAVESECRETA') {
+    http_response_code(404);
+    die(1);
+}
+
 
 switch($op) {
     case 'listar':
