@@ -11,6 +11,8 @@
     <div v-if="cargando">
       <img alt="cargando" src="./assets/wait.gif" />
     </div>
+    <hr>
+    <ComTabla v-bind:listadoDeProducto="listaDeProductos" v-bind:cargando="cargandoLista"></ComTabla>
   </div>
 </template>
 
@@ -27,20 +29,36 @@ import axios from 'axios';
 
 import ComTexto from "@/components/ComTexto";
 import ComBoton from "@/components/ComBoton";
+import ComTabla from "@/components/ComTabla";
 export default {
   name: 'App',
+  mounted() { // cuando la aplicacion esta creada pero no montada (no dibujada)
+      this.cargandoLista=true;
+      axios.get('http://localhost:63342/junio24vue/web/servicio.php?op=listar')
+    .then( resultado=>{
+      this.listaDeProductos=resultado.data;
+      this.cargandoLista=false;
+    });
+  },
   methods: {
     eventoApp() {
       // click en el boton, se llama a este evento.
       this.cargando=true;
       this.clasegif='visible';
       axios
-          .post('http://localhost:63342/junio22/web/servicio.php?_ijt=4sq464k5ti0ecpvo8sujs0kstp&op=insertar',this.producto)
-          .then(respuesta => {
-            alert('ok'+respuesta);
-            this.cargando=false;
-            this.clasegif='invisible';
-          })
+      .post('http://localhost:63342/junio24vue/web/servicio.php?op=insertar',this.producto)
+      .then(respuesta => { // si la operacion es correcta
+        console.log(respuesta);
+        this.listaDeProductos.push(this.producto);
+      })
+      .catch(()=>{  // si la operacion falla
+        console.log("error");
+        //console.log(respuesta);
+      })
+      .finally(()=>{
+        this.cargando=false;
+        this.clasegif='invisible';
+      })
 
     }
   },
@@ -51,11 +69,14 @@ export default {
         ,precio:0
         ,categoria:""
       },
+      cargandoLista:false,
       cargando:false,
-      clasegif:'invisible'
+      clasegif:'invisible',
+      listaDeProductos:[]
     }
   },
   components: {
+    ComTabla,
     ComBoton,
     ComTexto
 

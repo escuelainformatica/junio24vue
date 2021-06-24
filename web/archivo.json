@@ -1,0 +1,47 @@
+[
+  {
+    "nombre": "1",
+    "precio": "333232",
+    "categoria": "323232"
+  },
+  {
+    "nombre": "2",
+    "precio": "333",
+    "categoria": "3333"
+  },
+  {
+    "nombre": "3",
+    "precio": "333",
+    "categoria": "3333"
+  },
+  {
+    "nombre": "4",
+    "precio": "323232",
+    "categoria": "323223"
+  },
+  {
+    "nombre": "5",
+    "precio": "333",
+    "categoria": "333"
+  },
+  {
+    "nombre": "6",
+    "precio": "33",
+    "categoria": "222"
+  },
+  {
+    "nombre": "cocacola",
+    "precio": "100",
+    "categoria": "bebida"
+  },
+  {
+    "nombre": "fanta",
+    "precio": "555",
+    "categoria": "fanta"
+  },
+  {
+    "nombre": "7",
+    "precio": "777",
+    "categoria": "888"
+  }
+]
