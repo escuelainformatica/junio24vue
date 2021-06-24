@@ -13,6 +13,8 @@
     </div>
     <hr>
     <ComTabla v-bind:listadoDeProducto="listaDeProductos" v-bind:cargando="cargandoLista"></ComTabla>
+    <hr>
+    <ComTabla v-bind:listadoDeProducto="listadoDeMemoriaLocal"></ComTabla>
   </div>
 </template>
 
@@ -39,8 +41,11 @@ export default {
       )
     .then( resultado=>{
       this.listaDeProductos=resultado.data;
+      localStorage.setItem('listado',JSON.stringify(this.listaDeProductos)); // localStorage solo trabaja con strings.
       this.cargandoLista=false;
     });
+
+    this.listadoDeMemoriaLocal=JSON.parse(localStorage.getItem('listado'));
   },
   methods: {
     eventoApp() {
@@ -77,7 +82,8 @@ export default {
       cargandoLista:false,
       cargando:false,
       clasegif:'invisible',
-      listaDeProductos:[]
+      listaDeProductos:[],
+      listadoDeMemoriaLocal:[]
     }
   },
   components: {
